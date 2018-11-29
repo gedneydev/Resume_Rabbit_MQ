@@ -6,7 +6,16 @@ public class ApiResponse<T> {
     private String responseMessage;
     private T responseData;
 
-
+    @Override
+    public String toString() {
+        return "ApiResponse{" +
+                "apiName='" + apiName + '\'' +
+                ", responseCode=" + responseCode +
+                ", responseMessage='" + responseMessage + '\'' +
+                ", responseData=" + responseData +
+                '}';
+    }
+    
     public String getApiName() {
         return apiName;
     }
