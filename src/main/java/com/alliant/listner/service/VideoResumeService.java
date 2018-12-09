@@ -18,8 +18,8 @@ public class VideoResumeService {
     @Autowired private VideoResumeRepository videoResumeRepository;
     @Autowired private AuthService authService;
 
-    public VideoResume saveUpdate(VideoResumeCommand command) throws AuthException {
-        AuthResponse authResponse = authService.getAuthData(command.getCustomerToken());
+    public VideoResume saveUpdate(VideoResumeCommand command, String deviceToken) throws AuthException {
+        AuthResponse authResponse = authService.getAuthData(command.getCustomerToken(), deviceToken);
         VideoResume obj = domainConverter.toDomain(command, authResponse);
         obj = videoResumeRepository.save(obj);
         return obj;

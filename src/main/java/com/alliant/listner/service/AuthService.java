@@ -21,22 +21,24 @@ public class AuthService {
     @Autowired private AppConfig appConfig;
     @Autowired private LRUCache lruCache;
 
-    public AuthResponse getAuthData(String token) throws AuthException{
+    public AuthResponse getAuthData(String token, String deviceToken) throws AuthException{
         if(lruCache.containsKey(token)) {
             System.out.println("Get auth details from cache");
             return lruCache.get(token);
         } else {
             System.out.println("get auth details from api call");
-            AuthResponse authResponse = getAuthDataFromApi(token);
+            AuthResponse authResponse = getAuthDataFromApi(token, deviceToken);
             lruCache.put(token, authResponse);
             return authResponse;
         }
     }
 
-    private AuthResponse getAuthDataFromApi(String token) throws AuthException {
+    private AuthResponse getAuthDataFromApi(String token, String deviceToken) throws AuthException {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", token);
+        if(deviceToken !=null)
+            headers.set("Devicetoken",deviceToken);
         HttpEntity<?> httpEntity = new HttpEntity<>(headers);
         ResponseEntity<ApiResponse<AuthResponse>> response =  restTemplate.exchange(
                 appConfig.getAuthUrl(), HttpMethod.GET, httpEntity, new ParameterizedTypeReference<ApiResponse<AuthResponse>>() {});
