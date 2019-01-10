@@ -13,6 +13,7 @@ public class CommandToDomainConverter {
         obj.setPlayTime(command.getLastPlayTime());
         obj.setTotalPlayTime(command.getTotalPlayTime());
         obj.setEmail(authResponse.getEmail());
+        obj.setcDate(new Date());
         return obj;
     }
 
