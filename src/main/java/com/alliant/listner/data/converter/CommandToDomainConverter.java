@@ -5,6 +5,8 @@ import com.alliant.listner.data.response.AuthResponse;
 import com.alliant.listner.domain.VideoResume;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class CommandToDomainConverter {
 
